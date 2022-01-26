@@ -10,31 +10,31 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="com.example.hello.HelloController">
    <children>
       <VBox layoutX="23.0" layoutY="146.0" prefHeight="256.0" prefWidth="111.0" spacing="15.0">
          <children>
-            <Label prefHeight="17.0" prefWidth="34.0" text="ID">
+            <Label fx:id="label_id" prefHeight="17.0" prefWidth="34.0" text="ID">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Title">
+            <Label fx:id="label_title" text="Title">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label prefHeight="17.0" prefWidth="65.0" text="Author">
+            <Label fx:id="label_author" prefHeight="17.0" prefWidth="65.0" text="Author">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label text="Year">
+            <Label fx:id="label_year" text="Year">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label prefHeight="17.0" prefWidth="55.0" text="Pages">
+            <Label fx:id="label_pages" prefHeight="17.0" prefWidth="55.0" text="Pages">
                <font>
                   <Font size="15.0" />
                </font>
@@ -43,24 +43,24 @@
       </VBox>
       <VBox layoutX="71.0" layoutY="146.0" prefHeight="218.0" prefWidth="185.0" spacing="11.0">
          <children>
-            <TextField />
-            <TextField layoutX="10.0" layoutY="10.0" />
-            <TextField layoutX="10.0" layoutY="35.0" />
-            <TextField layoutX="10.0" layoutY="60.0" />
-            <TextField layoutX="10.0" layoutY="85.0" />
+            <TextField fx:id="textField_Id" />
+            <TextField fx:id="textField_title" layoutX="10.0" layoutY="10.0" />
+            <TextField fx:id="textField_author" layoutX="10.0" layoutY="35.0" />
+            <TextField fx:id="textField_year" layoutX="10.0" layoutY="60.0" />
+            <TextField fx:id="textField_pages" layoutX="10.0" layoutY="85.0" />
          </children>
       </VBox>
-      <TableView layoutX="284.0" layoutY="29.0" prefHeight="543.0" prefWidth="476.0">
+      <TableView fx:id="tableView" layoutX="284.0" layoutY="29.0" prefHeight="543.0" prefWidth="476.0">
         <columns>
-          <TableColumn prefWidth="35.0" text="ID" />
-          <TableColumn prefWidth="210.0" text="Title" />
-            <TableColumn prefWidth="117.0" text="Author" />
-            <TableColumn prefWidth="58.0" text="Year" />
-            <TableColumn minWidth="9.0" prefWidth="55.0" text="Pages" />
+          <TableColumn fx:id="tableColumn_id" prefWidth="35.0" text="ID" />
+          <TableColumn fx:id="tableColumn_title" prefWidth="210.0" text="Title" />
+            <TableColumn fx:id="tableColumn_author" prefWidth="117.0" text="Author" />
+            <TableColumn fx:id="tableColumn_year" prefWidth="58.0" text="Year" />
+            <TableColumn fx:id="tableColumn_pages" minWidth="9.0" prefWidth="55.0" text="Pages" />
         </columns>
       </TableView>
-      <Button layoutX="23.0" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="73.0" text="Insert" />
-      <Button layoutX="111.0" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" />
-      <Button layoutX="191.0" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" />
+      <Button fx:id="button_insert" layoutX="23.0" layoutY="390.0" mnemonicParsing="false" onAction="#onInsertButtonClick" prefHeight="25.0" prefWidth="73.0" text="Insert" />
+      <Button fx:id="button_update" layoutX="111.0" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" />
+      <Button fx:id="button_delete" layoutX="191.0" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" />
    </children>
 </AnchorPane>
