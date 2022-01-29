@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -37,19 +38,22 @@ public class HelloController implements Initializable {
     private TableColumn<BookModel, Integer> tableColumn_pages;
 
     @FXML
+    private TableView tableView;
+
+    @FXML
     protected void onInsertButtonClick() {
         textField_Id.setText("elo");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        showBooks();
     }
 
     public Connection getConnection() {
         Connection connection;
             try {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library", "root", "ejek");
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_db?serverTimezone=UTC", "root", "ejek");
                 return connection;
             } catch (Exception ex) {
                 System.out.println("Error: " + ex.getMessage());
@@ -60,7 +64,7 @@ public class HelloController implements Initializable {
     public ObservableList<BookModel> list() {
         ObservableList<BookModel> list = FXCollections.observableArrayList();
         Connection connection = getConnection();
-        String query = "SELECT * FROM books";
+        String query = "SELECT * FROM book";
         Statement statement;
         ResultSet resultSet;
 
@@ -75,6 +79,7 @@ public class HelloController implements Initializable {
                         resultSet.getString("author"),
                         resultSet.getInt("year"),
                         resultSet.getInt("pages"));
+                list.add(model);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -89,5 +94,7 @@ public class HelloController implements Initializable {
         tableColumn_author.setCellValueFactory(new PropertyValueFactory<BookModel, String>("author"));
         tableColumn_year.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("year"));
         tableColumn_pages.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("pages"));
+
+        tableView.setItems(list);
     }
 }
