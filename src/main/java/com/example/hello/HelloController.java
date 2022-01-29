@@ -3,12 +3,10 @@ package com.example.hello;
 import com.example.hello.model.BookModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.*;
@@ -20,7 +18,19 @@ import java.util.ResourceBundle;
 public class HelloController implements Initializable {
 
     @FXML
-    private TextField textField_Id;
+    private TextField textField_id;
+
+    @FXML
+    private TextField textField_title;
+
+    @FXML
+    private TextField textField_author;
+
+    @FXML
+    private TextField textField_year;
+
+    @FXML
+    private TextField textField_pages;
 
     @FXML
     private TableColumn<BookModel, Integer> tableColumn_id;
@@ -41,9 +51,15 @@ public class HelloController implements Initializable {
     private TableView tableView;
 
     @FXML
-    protected void onInsertButtonClick() {
-        textField_Id.setText("elo");
+    private Button button_insert;
+
+    @FXML
+    private void onInsertButtonClick(Event event) {
+        if(event.getSource() == button_insert) {
+            onInsertButtonClick();
+        }
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -96,5 +112,26 @@ public class HelloController implements Initializable {
         tableColumn_pages.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("pages"));
 
         tableView.setItems(list);
+    }
+
+    private void onInsertButtonClick() {
+        String query = "insert into book values (" + textField_id.getText() + ", '"
+                + textField_title.getText() + "', '"
+                + textField_author.getText() + "', "
+                + textField_year.getText() + ", "
+                + textField_pages.getText() + ")";
+        executeQuery(query);
+        showBooks();
+    }
+
+    private void executeQuery(String query) {
+        Connection connection = getConnection();
+        Statement statement;
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
