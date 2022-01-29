@@ -1,11 +1,11 @@
 package com.example.hello.model;
 
 public class BookModel {
-    private int id;
+    private Integer id;
     private String title;
     private String author;
-    private int year;
-    private int pages;
+    private Integer year;
+    private Integer pages;
 
     public BookModel(int id, String title, String author, int year, int pages) {
         this.id = id;
@@ -19,7 +19,7 @@ public class BookModel {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -43,7 +43,7 @@ public class BookModel {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -51,7 +51,7 @@ public class BookModel {
         return pages;
     }
 
-    public void setPages(int pages) {
+    public void setPages(Integer pages) {
         this.pages = pages;
     }
 
