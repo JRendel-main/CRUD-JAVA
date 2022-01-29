@@ -22,19 +22,19 @@ public class HelloController implements Initializable {
     private TextField textField_Id;
 
     @FXML
-    private TableColumn tableColumn_id;
+    private TableColumn<BookModel, Integer> tableColumn_id;
 
     @FXML
-    private TableColumn tableColumn_title;
+    private TableColumn<BookModel, String> tableColumn_title;
 
     @FXML
-    private TableColumn tableColumn_author;
+    private TableColumn<BookModel, String> tableColumn_author;
 
     @FXML
-    private TableColumn tableColumn_year;
+    private TableColumn<BookModel, Integer> tableColumn_year;
 
     @FXML
-    private TableColumn tableColumn_pages;
+    private TableColumn<BookModel, Integer> tableColumn_pages;
 
     @FXML
     protected void onInsertButtonClick() {
