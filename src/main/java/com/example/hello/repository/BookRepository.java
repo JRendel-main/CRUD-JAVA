@@ -9,13 +9,15 @@ import java.util.List;
 
 public class BookRepository implements CRUDrepository<BookModel> {
 
-
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/library_db?serverTimezone=UTC";
+    public static final String DB_USER = "root";
+    public static final String DB_PASSWORD = "ejek";
 
     @Override
     public List<BookModel> list() {
         ObservableList<BookModel> list = FXCollections.observableArrayList();
         Connection connection = getConnection();
-        String query = "SELECT * FROM book";
+        String query = "select * from book";
         Statement statement;
         ResultSet resultSet;
 
@@ -78,7 +80,7 @@ public class BookRepository implements CRUDrepository<BookModel> {
     public Connection getConnection() {
         Connection connection;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_db?serverTimezone=UTC", "root", "ejek");
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
             return connection;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
