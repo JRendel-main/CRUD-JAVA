@@ -6,7 +6,7 @@ import com.example.hello.repository.CRUDrepository;
 import java.util.List;
 
 public class BookService implements CRUDService<BookModel> {
-    private CRUDrepository<BookModel> repository;
+    private final CRUDrepository<BookModel> repository;
 
     public BookService(CRUDrepository<BookModel> repository) {
         this.repository = repository;
