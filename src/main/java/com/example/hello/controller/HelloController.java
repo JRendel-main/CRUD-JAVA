@@ -1,4 +1,4 @@
-package com.example.hello;
+package com.example.hello.controller;
 
 import com.example.hello.model.BookModel;
 import com.example.hello.repository.BookRepository;
