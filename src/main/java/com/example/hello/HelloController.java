@@ -54,9 +54,14 @@ public class HelloController implements Initializable {
     private Button button_insert;
 
     @FXML
+    private Button button_update;
+
+    @FXML
     private void onInsertButtonClick(Event event) {
         if(event.getSource() == button_insert) {
             onInsertButtonClick();
+        } else if (event.getSource() == button_update) {
+            onUpdateButtonClick();
         }
     }
 
@@ -120,6 +125,16 @@ public class HelloController implements Initializable {
                 + textField_author.getText() + "', "
                 + textField_year.getText() + ", "
                 + textField_pages.getText() + ")";
+        executeQuery(query);
+        showBooks();
+    }
+
+    private void onUpdateButtonClick() {
+        String query = "update book set title = '" + textField_title.getText()
+                +"' , author =  '" + textField_author.getText()
+                + "' , year = " + textField_year.getText()
+                + ", pages = " + textField_pages.getText()
+                + " where id = " + textField_id.getText() + "";
         executeQuery(query);
         showBooks();
     }

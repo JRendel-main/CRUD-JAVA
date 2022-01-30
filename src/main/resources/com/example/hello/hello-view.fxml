@@ -54,7 +54,7 @@
         </columns>
       </TableView>
       <Button fx:id="button_insert" layoutX="23.0" layoutY="390.0" mnemonicParsing="false" onAction="#onInsertButtonClick" prefHeight="25.0" prefWidth="73.0" text="Insert" />
-      <Button fx:id="button_update" layoutX="111.0" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Update" />
+      <Button fx:id="button_update" layoutX="111.0" layoutY="390.0" mnemonicParsing="false" onAction="#onInsertButtonClick" prefHeight="25.0" prefWidth="65.0" text="Update" />
       <Button fx:id="button_delete" layoutX="191.0" layoutY="390.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="Delete" />
    </children>
 </AnchorPane>
