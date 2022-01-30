@@ -61,18 +61,7 @@ public class HelloController implements Initializable {
     private Button button_delete;
 
     @FXML
-    private void onInsertButtonClick(Event event) {
-        if(event.getSource() == button_insert) {
-            onInsertButtonClick();
-        } else if (event.getSource() == button_update) {
-            onUpdateButtonClick();
-        } else if (event.getSource() == button_delete) {
-            onDeleteButtonClick();
-        }
-    }
-
-    @FXML
-    private void onTableViewMouseClicked(MouseEvent event) {
+    private void tableViewOnMouseClicked(MouseEvent event) {
         BookModel item = tableView.getSelectionModel().getSelectedItem();
         if (item != null) {
             textField_id.setText(String.valueOf(item.getId()));
@@ -81,6 +70,32 @@ public class HelloController implements Initializable {
             textField_year.setText(String.valueOf(item.getYear()));
             textField_pages.setText(String.valueOf(item.getPages()));
         }
+    }
+    @FXML
+    private void button_insertOnAction(Event event) {
+        String query = "insert into book values (" + textField_id.getText() + ", '"
+                + textField_title.getText() + "', '"
+                + textField_author.getText() + "', "
+                + textField_year.getText() + ", "
+                + textField_pages.getText() + ")";
+        executeQuery(query);
+        showBooks();
+    }
+    @FXML
+    private void button_updateOnAction(Event event) {
+        String query = "update book set title = '" + textField_title.getText()
+                +"' , author =  '" + textField_author.getText()
+                + "' , year = " + textField_year.getText()
+                + ", pages = " + textField_pages.getText()
+                + " where id = " + textField_id.getText() + "";
+        executeQuery(query);
+        showBooks();
+    }
+    @FXML
+    private void button_deleteOnAction(Event event) {
+        String query = "delete from book where id = " + textField_id.getText() + "";
+        executeQuery(query);
+        showBooks();
     }
 
     @Override
@@ -134,32 +149,6 @@ public class HelloController implements Initializable {
         tableColumn_pages.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("pages"));
 
         tableView.setItems(list);
-    }
-
-    private void onInsertButtonClick() {
-        String query = "insert into book values (" + textField_id.getText() + ", '"
-                + textField_title.getText() + "', '"
-                + textField_author.getText() + "', "
-                + textField_year.getText() + ", "
-                + textField_pages.getText() + ")";
-        executeQuery(query);
-        showBooks();
-    }
-
-    private void onUpdateButtonClick() {
-        String query = "update book set title = '" + textField_title.getText()
-                +"' , author =  '" + textField_author.getText()
-                + "' , year = " + textField_year.getText()
-                + ", pages = " + textField_pages.getText()
-                + " where id = " + textField_id.getText() + "";
-        executeQuery(query);
-        showBooks();
-    }
-
-    private void onDeleteButtonClick() {
-        String query = "delete from book where id = " + textField_id.getText() + "";
-        executeQuery(query);
-        showBooks();
     }
 
     private void executeQuery(String query) {
