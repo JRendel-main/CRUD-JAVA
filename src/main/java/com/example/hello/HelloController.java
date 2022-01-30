@@ -74,11 +74,13 @@ public class HelloController implements Initializable {
     @FXML
     private void onTableViewMouseClicked(MouseEvent event) {
         BookModel item = tableView.getSelectionModel().getSelectedItem();
-        textField_id.setText(String.valueOf(item.getId()));
-        textField_title.setText(item.getTitle());
-        textField_author.setText(item.getAuthor());
-        textField_year.setText(String.valueOf(item.getYear()));
-        textField_pages.setText(String.valueOf(item.getPages()));
+        if (item != null) {
+            textField_id.setText(String.valueOf(item.getId()));
+            textField_title.setText(item.getTitle());
+            textField_author.setText(item.getAuthor());
+            textField_year.setText(String.valueOf(item.getYear()));
+            textField_pages.setText(String.valueOf(item.getPages()));
+        }
     }
 
     @Override
