@@ -73,28 +73,15 @@ public class HelloController implements Initializable {
     }
     @FXML
     private void button_insertOnAction(Event event) {
-        String query = "insert into book values (" + textField_id.getText() + ", '"
-                + textField_title.getText() + "', '"
-                + textField_author.getText() + "', "
-                + textField_year.getText() + ", "
-                + textField_pages.getText() + ")";
-        executeQuery(query);
         showBooks();
     }
     @FXML
     private void button_updateOnAction(Event event) {
-        String query = "update book set title = '" + textField_title.getText()
-                +"' , author =  '" + textField_author.getText()
-                + "' , year = " + textField_year.getText()
-                + ", pages = " + textField_pages.getText()
-                + " where id = " + textField_id.getText() + "";
-        executeQuery(query);
         showBooks();
     }
     @FXML
     private void button_deleteOnAction(Event event) {
-        String query = "delete from book where id = " + textField_id.getText() + "";
-        executeQuery(query);
+
         showBooks();
     }
 
@@ -103,62 +90,16 @@ public class HelloController implements Initializable {
         showBooks();
     }
 
-    public Connection getConnection() {
-        Connection connection;
-            try {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/library_db?serverTimezone=UTC", "root", "ejek");
-                return connection;
-            } catch (Exception ex) {
-                System.out.println("Error: " + ex.getMessage());
-                return null;
-            }
-    }
-
-    public ObservableList<BookModel> list() {
-        ObservableList<BookModel> list = FXCollections.observableArrayList();
-        Connection connection = getConnection();
-        String query = "SELECT * FROM book";
-        Statement statement;
-        ResultSet resultSet;
-
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
-
-            BookModel model;
-            while (resultSet.next()) {
-                model = new BookModel(resultSet.getInt("id"),
-                        resultSet.getString("title"),
-                        resultSet.getString("author"),
-                        resultSet.getInt("year"),
-                        resultSet.getInt("pages"));
-                list.add(model);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return list;
-    }
 
     public void showBooks() {
-        ObservableList<BookModel> list = list();
+        ObservableList<BookModel> list ;//= list();
         tableColumn_id.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("id"));
         tableColumn_title.setCellValueFactory(new PropertyValueFactory<BookModel, String>("title"));
         tableColumn_author.setCellValueFactory(new PropertyValueFactory<BookModel, String>("author"));
         tableColumn_year.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("year"));
         tableColumn_pages.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("pages"));
 
-        tableView.setItems(list);
+        //tableView.setItems(list);
     }
 
-    private void executeQuery(String query) {
-        Connection connection = getConnection();
-        Statement statement;
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate(query);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 }
