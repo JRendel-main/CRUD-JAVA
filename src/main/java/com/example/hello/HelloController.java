@@ -57,11 +57,16 @@ public class HelloController implements Initializable {
     private Button button_update;
 
     @FXML
+    private Button button_delete;
+
+    @FXML
     private void onInsertButtonClick(Event event) {
         if(event.getSource() == button_insert) {
             onInsertButtonClick();
         } else if (event.getSource() == button_update) {
             onUpdateButtonClick();
+        } else if (event.getSource() == button_delete) {
+            onDeleteButtonClick();
         }
     }
 
@@ -135,6 +140,12 @@ public class HelloController implements Initializable {
                 + "' , year = " + textField_year.getText()
                 + ", pages = " + textField_pages.getText()
                 + " where id = " + textField_id.getText() + "";
+        executeQuery(query);
+        showBooks();
+    }
+
+    private void onDeleteButtonClick() {
+        String query = "delete from book where id = " + textField_id.getText() + "";
         executeQuery(query);
         showBooks();
     }
