@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.sql.*;
 
@@ -48,7 +49,7 @@ public class HelloController implements Initializable {
     private TableColumn<BookModel, Integer> tableColumn_pages;
 
     @FXML
-    private TableView tableView;
+    private TableView<BookModel> tableView;
 
     @FXML
     private Button button_insert;
@@ -70,6 +71,15 @@ public class HelloController implements Initializable {
         }
     }
 
+    @FXML
+    private void onTableViewMouseClicked(MouseEvent event) {
+        BookModel item = tableView.getSelectionModel().getSelectedItem();
+        textField_id.setText(String.valueOf(item.getId()));
+        textField_title.setText(item.getTitle());
+        textField_author.setText(item.getAuthor());
+        textField_year.setText(String.valueOf(item.getYear()));
+        textField_pages.setText(String.valueOf(item.getPages()));
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
