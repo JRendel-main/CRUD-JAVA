@@ -11,56 +11,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #bbdefb;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hello.controller.HelloController">
+<?import javafx.scene.control.ComboBox?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="929.0" style="-fx-background-color: #f2b80a;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hello.controller.HelloController">
    <children>
-      <VBox layoutX="23.0" layoutY="146.0" prefHeight="256.0" prefWidth="111.0" spacing="15.0">
-         <children>
-            <Label fx:id="label_id" prefHeight="17.0" prefWidth="34.0" text="ID">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_title" text="Title">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_author" prefHeight="17.0" prefWidth="65.0" text="Author">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_year" text="Year">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Label fx:id="label_pages" prefHeight="17.0" prefWidth="55.0" text="Pages">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox layoutX="71.0" layoutY="146.0" prefHeight="218.0" prefWidth="185.0" spacing="11.0">
-         <children>
-            <TextField fx:id="textField_id" />
-            <TextField fx:id="textField_title" layoutX="10.0" layoutY="10.0" />
-            <TextField fx:id="textField_author" layoutX="10.0" layoutY="35.0" />
-            <TextField fx:id="textField_year" layoutX="10.0" layoutY="60.0" />
-            <TextField fx:id="textField_pages" layoutX="10.0" layoutY="85.0" />
-         </children>
-      </VBox>
-      <TableView fx:id="tableView" layoutX="284.0" layoutY="29.0" onMouseClicked="#tableViewOnMouseClicked" prefHeight="543.0" prefWidth="476.0">
+      <VBox layoutX="23.0" layoutY="146.0" prefHeight="96.0" prefWidth="111.0" spacing="15.0" />
+      <VBox layoutX="71.0" layoutY="146.0" prefHeight="218.0" prefWidth="185.0" spacing="11.0" />
+      <TableView fx:id="tableView" layoutX="284.0" layoutY="115.0" onMouseClicked="#tableViewOnMouseClicked" prefHeight="457.0" prefWidth="587.0">
         <columns>
           <TableColumn fx:id="tableColumn_id" prefWidth="35.0" text="ID" />
-          <TableColumn fx:id="tableColumn_title" prefWidth="210.0" text="Title" />
-            <TableColumn fx:id="tableColumn_author" prefWidth="117.0" text="Author" />
+          <TableColumn fx:id="tableColumn_title" prefWidth="166.0" text="Title" />
+            <TableColumn fx:id="tableColumn_author" prefWidth="161.0" text="Author" />
             <TableColumn fx:id="tableColumn_year" prefWidth="58.0" text="Year" />
             <TableColumn fx:id="tableColumn_pages" minWidth="9.0" prefWidth="55.0" text="Pages" />
+            <TableColumn fx:id="tableColumn_genre" minWidth="9.0" prefWidth="55.0" text="Genre" />
+            <TableColumn fx:id="tableColumn_status" minWidth="9.0" prefWidth="55.0" text="Status" />
+           <TableColumn fx:id="tableColumn_state" minWidth="9.0" prefWidth="55.0" text="State" />
         </columns>
       </TableView>
-      <Button fx:id="button_insert" layoutX="23.0" layoutY="390.0" mnemonicParsing="false" onAction="#button_insertOnAction" prefHeight="25.0" prefWidth="76.0" text="Insert">
+      <Button fx:id="button_insert" layoutX="23.0" layoutY="447.0" mnemonicParsing="false" onAction="#button_insertOnAction" prefHeight="25.0" prefWidth="76.0" text="Insert">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -69,7 +37,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="button_update" layoutX="99.0" layoutY="390.0" mnemonicParsing="false" onAction="#button_updateOnAction" prefHeight="25.0" prefWidth="82.0" text="Update">
+      <Button fx:id="button_update" layoutX="99.0" layoutY="447.0" mnemonicParsing="false" onAction="#button_updateOnAction" prefHeight="25.0" prefWidth="82.0" text="Update">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -77,7 +45,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="button_delete" layoutX="181.0" layoutY="390.0" mnemonicParsing="false" onAction="#button_deleteOnAction" prefHeight="25.0" prefWidth="76.0" text="Delete">
+      <Button fx:id="button_delete" layoutX="181.0" layoutY="447.0" mnemonicParsing="false" onAction="#button_deleteOnAction" prefHeight="25.0" prefWidth="76.0" text="Delete">
          <graphic>
             <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -85,5 +53,60 @@
                </image>
             </ImageView>
          </graphic></Button>
+      <TextField fx:id="textField_id" layoutX="107.0" layoutY="62.0" />
+      <TextField fx:id="textField_title" layoutX="107.0" layoutY="98.0" />
+      <TextField fx:id="textField_author" layoutX="107.0" layoutY="134.0" />
+      <TextField fx:id="textField_year" layoutX="107.0" layoutY="170.0" />
+      <TextField fx:id="textField_pages" layoutX="107.0" layoutY="206.0" />
+      <ComboBox fx:id="comboBox_genre" layoutX="107.0" layoutY="242.0" prefHeight="25.0" prefWidth="150.0" />
+       <ComboBox fx:id="comboBox_status" layoutX="107.0" layoutY="278.0" prefHeight="25.0" prefWidth="150.0" />
+        <ComboBox fx:id="comboBox_state" layoutX="107.0" layoutY="314.0" prefHeight="25.0" prefWidth="150.0" />
+        <Button fx:id="button_clear" layoutX="23.0" layoutY="478.0" mnemonicParsing="false" onAction="#button_clearOnAction" prefHeight="25.0" prefWidth="76.0" text="Clear"></Button>
+        <Button fx:id="ShowAvailableBooks" layoutX="99.0" layoutY="478.0" mnemonicParsing="false" onAction="#ShowAvailableBooksOnAction" prefHeight="25.0" prefWidth="82.0" text="Show Available Books"></Button>
+       <Label fx:id="label_id" layoutX="41.0" layoutY="63.0" prefHeight="17.0" prefWidth="34.0" text="ID">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_title" layoutX="41.0" layoutY="99.0" text="Title">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_author" layoutX="41.0" layoutY="135.0" prefHeight="17.0" prefWidth="65.0" text="Author">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_year" layoutX="41.0" layoutY="171.0" text="Year">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="label_pages" layoutX="41.0" layoutY="207.0" prefHeight="17.0" prefWidth="55.0" text="Pages">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="363.0" layoutY="29.0" prefHeight="69.0" prefWidth="318.0" text="Library Management System" textAlignment="JUSTIFY">
+         <font>
+            <Font name="Arial" size="24.0" />
+         </font>
+      </Label>
+        <Label fx:id="label_genre" layoutX="41.0" layoutY="243.0" text="Genre">
+             <font>
+                <Font size="15.0" />
+             </font>
+        </Label>
+        <Label fx:id="label_status" layoutX="41.0" layoutY="279.0" text="Status">
+             <font>
+                <Font size="15.0" />
+             </font>
+        </Label>
+        <Label fx:id="label_state" layoutX="41.0" layoutY="315.0" text="State">
+             <font>
+                <Font size="15.0" />
+             </font>
+        </Label>
    </children>
 </AnchorPane>

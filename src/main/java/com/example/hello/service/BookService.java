@@ -36,4 +36,15 @@ public class BookService implements CRUDService<BookModel> {
     public boolean delete(int id) {
         return repository.delete(id);
     }
+
+    @Override
+    public BookModel showAvail(int id, BookModel model) {
+        return repository.showAvail(id, model);
+    }
+
+    @Override
+    public BookModel showAvail() {
+        return null;
+    }
+
 }

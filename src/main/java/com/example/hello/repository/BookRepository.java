@@ -3,21 +3,22 @@ package com.example.hello.repository;
 import com.example.hello.model.BookModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.util.List;
 
 public class BookRepository implements CRUDrepository<BookModel> {
 
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/library_db?serverTimezone=UTC";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/library";
     public static final String DB_USER = "root";
-    public static final String DB_PASSWORD = "ejek";
+    public static final String DB_PASSWORD = "";
 
     @Override
     public List<BookModel> list() {
         ObservableList<BookModel> list = FXCollections.observableArrayList();
         Connection connection = getConnection();
-        String query = "select * from book";
+        String query = "select * from books";
         Statement statement;
         ResultSet resultSet;
 
@@ -31,7 +32,11 @@ public class BookRepository implements CRUDrepository<BookModel> {
                         resultSet.getString("title"),
                         resultSet.getString("author"),
                         resultSet.getInt("year"),
-                        resultSet.getInt("pages"));
+                        resultSet.getInt("pages"),
+                        resultSet.getString("genre"),
+                        resultSet.getString("status"),
+                        resultSet.getString("state")
+                        );
                 list.add(model);
             }
         } catch (SQLException ex) {
@@ -42,11 +47,14 @@ public class BookRepository implements CRUDrepository<BookModel> {
 
     @Override
     public BookModel create(BookModel model) {
-        String query = "insert into book values (" + model.getId() + ", '"
+        String query = "insert into books values (" + model.getId() + ", '"
                 + model.getTitle() + "', '"
                 + model.getAuthor() + "', "
                 + model.getYear() + ", "
-                + model.getPages() + ")";
+                + model.getPages() + ", '"
+                + model.getGenre() + "', '"
+                + model.getStatus() + "', '"
+                + model.getState() + "')";
         executeQuery(query);
         //TODO get created model
         return model;
@@ -59,11 +67,34 @@ public class BookRepository implements CRUDrepository<BookModel> {
 
     @Override
     public BookModel update(int id, BookModel model) {
-        String query = "update book set title = '" + model.getTitle()
-                +"' , author =  '" + model.getAuthor()
-                + "' , year = " + model.getYear()
-                + ", pages = " + model.getPages()
-                + " where id = " + id + "";
+        String query = "update books set title = '" + model.getTitle() + "', "
+                + "author = '" + model.getAuthor() + "', "
+                + "year = " + model.getYear() + ", "
+                + "pages = " + model.getPages() + ", "
+                + "genre = '" + model.getGenre() + "', "
+                + "status = '" + model.getStatus() + "', "
+                + "state = '" + model.getState() + "' "
+                + "where id = " + id + "";
+        executeQuery(query);
+        //TODO get updated model
+        return model;
+    }
+
+    @Override
+    public BookModel showAvail() {
+        return null;
+    }
+
+    @Override
+    public BookModel showAvail(int id, BookModel model) {
+        String query = "update books set title = '" + model.getTitle() + "', "
+                + "author = '" + model.getAuthor() + "', "
+                + "year = " + model.getYear() + ", "
+                + "pages = " + model.getPages() + ", "
+                + "genre = '" + model.getGenre() + "', "
+                + "status = '" + model.getStatus() + "', "
+                + "state = '" + model.getState() + "' "
+                + "where id = " + "Available" + "";
         executeQuery(query);
         //TODO get updated model
         return model;
@@ -71,7 +102,7 @@ public class BookRepository implements CRUDrepository<BookModel> {
 
     @Override
     public boolean delete(int id) {
-        String query = "delete from book where id = " + id + "";
+        String query = "delete from books where id = " + id + "";
         executeQuery(query);
         //TODO return true if deletion is completed
         return true;
@@ -95,7 +126,12 @@ public class BookRepository implements CRUDrepository<BookModel> {
             statement = connection.createStatement();
             statement.executeUpdate(query);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("SQL Error");
+            alert.setHeaderText("An error occurred while executing SQL query.");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
+            System.out.println("Error: " + ex.getMessage());
         }
     }
 }

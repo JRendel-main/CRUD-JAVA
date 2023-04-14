@@ -4,13 +4,16 @@ import com.example.hello.model.BookModel;
 import com.example.hello.repository.BookRepository;
 import com.example.hello.service.BookService;
 import com.example.hello.service.CRUDService;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.ComboBox;
 
 
 import java.net.URL;
@@ -28,6 +31,16 @@ public class HelloController implements Initializable {
     private TextField textField_year;
     @FXML
     private TextField textField_pages;
+
+    @FXML
+    private ComboBox<String> comboBox_genre;
+
+    @FXML
+    private ComboBox<String> comboBox_status;
+
+    @FXML
+    private ComboBox<String> comboBox_state;
+
     @FXML
     private TableColumn<BookModel, Integer> tableColumn_id;
     @FXML
@@ -38,6 +51,15 @@ public class HelloController implements Initializable {
     private TableColumn<BookModel, Integer> tableColumn_year;
     @FXML
     private TableColumn<BookModel, Integer> tableColumn_pages;
+
+    @FXML
+    private TableColumn<BookModel, String> tableColumn_genre;
+
+    @FXML
+    private TableColumn<BookModel, String> tableColumn_status;
+
+    @FXML
+    private TableColumn<BookModel, String> tableColumn_state;
     @FXML
     private TableView<BookModel> tableView;
     @FXML
@@ -57,6 +79,17 @@ public class HelloController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showBooks();
+        ObservableList<String> genreList = FXCollections.observableArrayList(
+                "Action", "Adventure", "Comedy", "Drama", "Fantasy", "Sci-Fi", "Thriller");
+        comboBox_genre.setItems(genreList);
+
+        ObservableList<String> statusList = FXCollections.observableArrayList(
+                "Available", "Borrowed", "Lost");
+        comboBox_status.setItems(statusList);
+
+        ObservableList<String> stateList = FXCollections.observableArrayList(
+                "New", "Damaged", "Missing", "Slightly-Damaged", "Used");
+        comboBox_state.setItems(stateList);
     }
 
     @FXML
@@ -68,7 +101,10 @@ public class HelloController implements Initializable {
             textField_author.setText(item.getAuthor());
             textField_year.setText(String.valueOf(item.getYear()));
             textField_pages.setText(String.valueOf(item.getPages()));
-        }
+            comboBox_genre.setValue(item.getGenre());
+            comboBox_status.setValue(item.getStatus());
+            comboBox_state.setValue(item.getState());
+    }
     }
     @FXML
     private void button_insertOnAction(Event event) {
@@ -77,7 +113,10 @@ public class HelloController implements Initializable {
                 textField_title.getText(),
                 textField_author.getText(),
                 Integer.parseInt(textField_year.getText()),
-                Integer.parseInt(textField_pages.getText())
+                Integer.parseInt(textField_pages.getText()),
+                comboBox_genre.getValue(),
+                comboBox_status.getValue(),
+                comboBox_state.getValue()
         );
         service.create(model);
         showBooks();
@@ -90,7 +129,10 @@ public class HelloController implements Initializable {
                 textField_title.getText(),
                 textField_author.getText(),
                 Integer.parseInt(textField_year.getText()),
-                Integer.parseInt(textField_pages.getText())
+                Integer.parseInt(textField_pages.getText()),
+                comboBox_genre.getValue(),
+                comboBox_status.getValue(),
+                comboBox_state.getValue()
         );
         service.update(id, model);
         showBooks();
@@ -109,8 +151,34 @@ public class HelloController implements Initializable {
         tableColumn_author.setCellValueFactory(new PropertyValueFactory<BookModel, String>("author"));
         tableColumn_year.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("year"));
         tableColumn_pages.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("pages"));
+        tableColumn_genre.setCellValueFactory(new PropertyValueFactory<BookModel, String>("genre"));
+        tableColumn_status.setCellValueFactory(new PropertyValueFactory<BookModel, String>("status"));
+        tableColumn_state.setCellValueFactory(new PropertyValueFactory<BookModel, String>("state"));
 
         tableView.setItems(list);
     }
 
+    public void button_clearOnAction(ActionEvent actionEvent) {
+        textField_id.setText("");
+        textField_title.setText("");
+        textField_author.setText("");
+        textField_year.setText("");
+        textField_pages.setText("");
+        comboBox_genre.setValue("");
+        comboBox_status.setValue("");
+        comboBox_state.setValue("");
+    }
+
+    public void ShowAvailableBooksOnAction(ActionEvent actionEvent) {
+        // get the list of books from showAvail method in BookService class and display it in the table
+        ObservableList<BookModel> list = (ObservableList<BookModel>) service.showAvail();
+        tableColumn_id.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("id"));
+        tableColumn_title.setCellValueFactory(new PropertyValueFactory<BookModel, String>("title"));
+        tableColumn_author.setCellValueFactory(new PropertyValueFactory<BookModel, String>("author"));
+        tableColumn_year.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("year"));
+        tableColumn_pages.setCellValueFactory(new PropertyValueFactory<BookModel, Integer>("pages"));
+        tableColumn_genre.setCellValueFactory(new PropertyValueFactory<BookModel, String>("genre"));
+        tableColumn_status.setCellValueFactory(new PropertyValueFactory<BookModel, String>("status"));
+        tableColumn_state.setCellValueFactory(new PropertyValueFactory<BookModel, String>("state"));
+    }
 }
